@@ -514,7 +514,7 @@ input,select{font:inherit;color:inherit}
   .panel__img{order:-1;aspect-ratio:1.5}
   .panel .btn{width:100%}
 
-  .quiz{border-radius:22px;margin:0 calc(var(--pad) * -.5)}
+  .quiz{border-radius:22px}
   .quiz__aside .h2{font-size:30px}
   .quiz__aside>p{font-size:15px}
   .quiz__body{min-height:auto;padding:24px 20px}
