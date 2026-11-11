@@ -238,6 +238,8 @@
   qBody.addEventListener('click', e => {
     const b = e.target.closest('[data-q]'); if (!b) return;
     step = Math.max(0, Math.min(QUIZ.length, step + +b.dataset.q)); renderQuiz();
+    const top = qBody.getBoundingClientRect().top;
+    if (top < 70) scrollBy({ top: top - 90, behavior: 'smooth' });
   });
   renderQuiz();
 
