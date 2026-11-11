@@ -100,6 +100,22 @@
     if (openLayer?.id === 'modal-gallery') { if (e.key === 'ArrowRight') galGo(1); if (e.key === 'ArrowLeft') galGo(-1); }
   });
 
+  /* ---------- desktop dropdowns (one at a time) ---------- */
+  const drops = $$('.nav__item--drop');
+  const closeDrops = (except) => drops.forEach(d => { if (d !== except) d.classList.remove('is-open'); });
+  drops.forEach(d => {
+    let t;
+    const open = () => { clearTimeout(t); closeDrops(d); d.classList.add('is-open'); };
+    const close = () => { t = setTimeout(() => d.classList.remove('is-open'), 180); };
+    d.addEventListener('mouseenter', open);
+    d.addEventListener('mouseleave', close);
+    $('.nav__link', d).addEventListener('click', () => d.classList.contains('is-open') ? d.classList.remove('is-open') : open());
+    d.addEventListener('focusin', open);
+    d.addEventListener('focusout', e => { if (!d.contains(e.relatedTarget)) d.classList.remove('is-open'); });
+    $$('.dropdown a', d).forEach(a => a.addEventListener('click', () => { d.classList.remove('is-open'); a.blur(); }));
+  });
+  document.addEventListener('click', e => { if (!e.target.closest('.nav__item--drop')) closeDrops(); });
+
   /* ---------- mobile menu ---------- */
   const burger = $('[data-burger]'), mmenu = $('#mmenu');
   const closeMenu = () => { mmenu.classList.remove('is-open'); burger.classList.remove('is-open'); burger.setAttribute('aria-expanded', 'false'); if (!openLayer) document.body.classList.remove('lock'); };
