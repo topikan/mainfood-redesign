@@ -233,7 +233,6 @@
     if (e.target.type === 'radio') {
       answers[step] = e.target.value;
       $('[data-q="1"]', qBody).disabled = false;
-      setTimeout(() => { if (step < QUIZ.length) { step++; renderQuiz(); } }, 380);
     }
   });
   qBody.addEventListener('click', e => {
