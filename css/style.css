@@ -844,3 +844,8 @@ input,select{font:inherit;color:inherit}
 @media (max-width:1024px){
   .hero__bg::after{background:linear-gradient(180deg,rgba(24,14,13,.55) 0%,rgba(24,14,13,.46) 50%,rgba(24,14,13,.7) 100%)!important}
 }
+/* desktop/tablet: regular hero height; full-screen stretch only on phones */
+@media (min-width:761px){
+  .hero{min-height:0;display:block}
+  .hero__inner{min-height:min(680px,76vh)}
+}
