@@ -305,19 +305,32 @@
 </section>
 
 <!-- ============ LOGOS ============ -->
-<section class="logos">
+<section class="trust section">
   <div class="container">
-    <p class="logos__title reveal">Нам доверяют</p>
-  </div>
-  <div class="marquee" data-marquee="clients"></div>
-  <div class="container">
-    <p class="logos__title reveal">Наши друзья и партнёры</p>
-  </div>
-  <div class="marquee marquee--rev" data-marquee="partners"></div>
-  <div class="container">
+    <div class="section-head section-head--row reveal">
+      <div>
+        <p class="eyebrow">Нам доверяют</p>
+        <h2 class="h2">Благодарственные письма</h2>
+      </div>
+      <div class="slider-arrows">
+        <button class="arrow-btn arrow-btn--prev" type="button" data-letters-nav="-1" aria-label="Назад"><svg><use href="#i-arrow"/></svg></button>
+        <button class="arrow-btn" type="button" data-letters-nav="1" aria-label="Вперёд"><svg><use href="#i-arrow"/></svg></button>
+      </div>
+    </div>
+    <div class="letters" data-letters></div>
+
+    <div class="partners-wrap">
+      <p class="eyebrow reveal">Наши друзья и партнёры</p>
+      <div class="partners" data-partners></div>
+    </div>
+
     <div class="akbs reveal">
-      <img src="https://static.tildacdn.com/tild3464-6133-4163-b066-313836623530/_ABCS_logo_rus_1.jpg" alt="АКБС" loading="lazy">
-      <p>Mainfood состоит в Ассоциации кейтерингов<br>и банкетных служб (АКБС)</p>
+      <div class="akbs__logo"><img src="https://static.tildacdn.com/tild3464-6133-4163-b066-313836623530/_ABCS_logo_rus_1.jpg" alt="АКБС" loading="lazy"></div>
+      <div class="akbs__text">
+        <b>Член Ассоциации кейтерингов и банкетных служб</b>
+        <p>Mainfood работает по стандартам АКБС — профессионального сообщества кейтеринговых компаний России.</p>
+      </div>
+      <button class="link-arrow" type="button" data-akbs>Свидетельство <svg><use href="#i-arrow"/></svg></button>
     </div>
   </div>
 </section>

@@ -37,6 +37,8 @@
   const CLIENTS = ['tild3865-3535-4165-a539-393737303064/87897987987987987987.jpg', 'tild3063-6338-4939-b732-613032323532/08-2025.jpg', 'tild3861-3039-4633-b965-623433613764/42334.jpg', 'tild3665-3935-4632-a638-666334616262/0100024.jpg', 'tild3961-3634-4533-b138-643834386339/010001.jpg', 'tild6163-6334-4636-b766-306262343138/__page-00w01_1.jpg', 'tild6134-3739-4138-b039-376435396535/__page-0001.jpg', 'tild3937-3133-4466-b435-356438626339/__page-0001.jpg', 'tild3864-6563-4565-b562-316237663164/_20230623_page-0001.jpg', 'tild6233-3738-4535-b263-386231653535/blago.jpg', 'tild3232-3431-4333-b235-393835626631/988978876.jpg', 'tild3161-3564-4337-b866-633237363466/87897987987987987987.jpg'];
   const PARTNERS = ['tild3966-3064-4338-a166-353638393938/001.jpg', 'tild6161-6638-4263-a131-313833333536/002.jpg', 'tild3765-3862-4430-b530-643864363236/003.jpg', 'tild3466-3437-4166-b066-623463313735/004.jpg', 'tild6333-6465-4339-b539-663530336630/005.jpg', 'tild3337-3236-4063-b132-323233656566/001.jpg', 'tild6135-3361-4532-b234-373832623266/006.jpg'];
 
+  const AKBS_CERT = 'tild3963-6137-4937-b739-386165633565/Mainfood_page-0001_1.jpg';
+
   const QUIZ = [
     { q: 'Какой формат мероприятия вы планируете?', img: true, opts: [
       ['В помещении', 'tild6635-3038-4132-a232-613537626661/IMG_8910.jpg'],
@@ -248,30 +250,37 @@
       <h3>${c.title}</h3>
       <p>${c.text}</p>
     </button>`).join('');
-  let gal = { c: 0, i: 0 };
+  let gal = { items: [], title: '', i: 0 };
   const galImg = $('[data-gal-img]'), galCap = $('[data-gal-cap]');
   const galShow = () => {
-    const c = CASES[gal.c];
-    galImg.src = CDN + c.photos[gal.i];
-    galCap.textContent = `${c.title} · ${gal.i + 1} / ${c.photos.length}`;
+    galImg.src = CDN + gal.items[gal.i];
+    galCap.textContent = `${gal.title} · ${gal.i + 1} / ${gal.items.length}`;
   };
-  const galGo = (d) => { const n = CASES[gal.c].photos.length; gal.i = (gal.i + d + n) % n; galShow(); };
+  const galOpen = (items, title, i = 0) => { gal = { items, title, i }; galShow(); openL($('#modal-gallery')); };
+  const galGo = (d) => { const n = gal.items.length; gal.i = (gal.i + d + n) % n; galShow(); };
   document.addEventListener('click', e => {
     const c = e.target.closest('[data-case]');
-    if (c) { gal = { c: +c.dataset.case, i: 0 }; galShow(); openL($('#modal-gallery')); }
+    if (c) { const k = CASES[+c.dataset.case]; galOpen(k.photos, k.title); }
+    const l = e.target.closest('[data-letter]');
+    if (l) galOpen(CLIENTS, 'Благодарственные письма', +l.dataset.letter);
+    if (e.target.closest('[data-akbs]')) galOpen([AKBS_CERT], 'Свидетельство АКБС');
     const g = e.target.closest('[data-gal]'); if (g) galGo(+g.dataset.gal);
   });
   let tx = 0;
   galImg.addEventListener('touchstart', e => tx = e.touches[0].clientX, { passive: true });
   galImg.addEventListener('touchend', e => { const d = e.changedTouches[0].clientX - tx; if (Math.abs(d) > 40) galGo(d < 0 ? 1 : -1); });
 
-  /* ---------- logos marquee ---------- */
-  const fillMarquee = (el, arr) => {
-    const imgs = arr.map(p => `<img src="${CDN + p}" alt="" loading="lazy">`).join('');
-    el.innerHTML = `<div class="marquee__track">${imgs}${imgs}</div>`;
-  };
-  fillMarquee($('[data-marquee="clients"]'), CLIENTS);
-  fillMarquee($('[data-marquee="partners"]'), PARTNERS);
+  /* ---------- letters & partners ---------- */
+  const lettersEl = $('[data-letters]');
+  lettersEl.innerHTML = CLIENTS.map((p, i) => `
+    <button class="letter" type="button" data-letter="${i}" aria-label="Открыть письмо ${i + 1}">
+      <div class="letter__paper"><img src="${CDN + p}" alt="Благодарственное письмо" loading="lazy"><span class="letter__zoom">${icon('plus')}</span></div>
+    </button>`).join('');
+  $$('[data-letters-nav]').forEach(b => b.addEventListener('click', () => {
+    const w = lettersEl.firstElementChild.offsetWidth + 20;
+    lettersEl.scrollBy({ left: w * +b.dataset.lettersNav * 2, behavior: 'smooth' });
+  }));
+  $('[data-partners]').innerHTML = PARTNERS.map(p => `<div class="partner reveal"><img src="${CDN + p}" alt="Логотип партнёра" loading="lazy"></div>`).join('');
 
   /* ---------- phone mask + forms ---------- */
   function maskPhone(e) {
