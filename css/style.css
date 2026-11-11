@@ -578,3 +578,90 @@ input,select{font:inherit;color:inherit}
   .gallery__prev{left:calc(50% - 60px)}.gallery__next{right:calc(50% - 60px)}
 }
 @keyframes partnersRun{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+
+/* ===== phone: every section ≈ one screen ===== */
+@media (max-width:760px){
+  :root{--sec:44px}
+  .h2{font-size:30px}
+  .section-head{margin-bottom:18px}
+  .section-head--row{gap:10px}
+  .section-head__note{display:none}
+  .eyebrow{margin-bottom:10px}
+
+  /* why: compact 2-col */
+  .feats{grid-template-columns:1fr 1fr;gap:8px}
+  .feat{display:flex;flex-direction:column;justify-content:flex-start;padding:14px 14px 15px;border-radius:16px}
+  .feat__num{display:none}
+  .feat h3{font-size:19px;margin-bottom:4px}
+  .feat p{font-size:12.5px;line-height:1.45}
+  .feat__more{font-size:12.5px;margin-top:6px}
+
+  /* split */
+  .split__img{min-height:190px}
+  .split__text{padding-top:8px;padding-bottom:var(--sec)}
+  .split__text p{margin:14px 0 18px;font-size:15px}
+
+  /* services */
+  .svc__img{aspect-ratio:1.6}
+  .svc__body{padding:14px 16px 16px}
+  .svc__body p{margin-bottom:12px}
+
+  /* messengers */
+  .msg__inner{padding:20px 0;gap:12px}
+  .msg__title{font-size:22px}
+  .msg .btn{height:46px}
+
+  /* formats */
+  .tabs{margin-bottom:16px}
+  .tabs button{height:40px;padding:0 16px;font-size:13px}
+  .panel{gap:14px}
+  .panel__img{aspect-ratio:2.2}
+  .panel__text h3{font-size:26px;margin-bottom:6px}
+  .panel__text>p{display:none}
+  .panel__list{margin-bottom:16px}
+  .panel__list li{padding:7px 0;font-size:14px}
+
+  /* quiz */
+  .quiz__aside{padding:20px 18px 18px}
+  .quiz__aside .eyebrow{margin-bottom:8px}
+  .quiz__aside .h2{font-size:24px;margin-bottom:14px}
+  .quiz__aside>p{display:none}
+  .quiz__body{padding:18px 16px}
+  .q-step h3{font-size:22px;margin-bottom:14px}
+  .q-opts{gap:8px}
+  .q-opt{min-height:48px;padding:10px 14px;font-size:14px}
+  .q-opts--img .q-opt img{aspect-ratio:1.9}
+  .q-opts--img .q-opt{padding:6px 6px 10px;gap:8px}
+  .q-nav{padding-top:16px}
+
+  /* banner */
+  .banner__inner{padding-top:120px;padding-bottom:44px}
+  .banner p{margin:10px 0 20px;font-size:15px}
+
+  /* portfolio */
+  .pf-item__img{aspect-ratio:1.5;margin-bottom:12px}
+  .pf-item h3{font-size:22px}
+
+  /* agency */
+  .agency .h2{margin-bottom:18px}
+  .agency__list{margin-top:6px}
+  .agency__list li{padding:12px 0}
+  .agency__list b{font-size:20px}
+  .agency__list span{font-size:14px}
+
+  /* emotions */
+  .emo__inner{gap:18px}
+  .emo__img{aspect-ratio:1.9}
+  .emo__text p{font-size:15px;margin-top:10px}
+  .emo__text p:nth-of-type(3){display:none}
+  .emo__quote{font-size:20px;padding:10px 0 10px 16px;margin-top:16px!important}
+
+  /* trust */
+  .letter{flex:0 0 44%}
+  .partners-wrap{margin-top:32px}
+
+  /* cta + footer */
+  .cta__inner{gap:20px;padding-top:44px;padding-bottom:44px}
+  .footer{padding:32px 0 22px}
+  .footer__inner{gap:16px;padding-bottom:22px}
+}
