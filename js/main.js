@@ -260,22 +260,13 @@
   renderQuiz();
 
   /* ---------- cases & gallery ---------- */
-  const VIDEOS = [
-    { title: 'Клиентский день', meta: 'Видео', text: 'Как проходит наше мероприятие — от подготовки до финального тоста.', cover: 'tild3934-3033-4639-b439-383665363666/IMG_8872.jpg' },
-    { title: 'Импрессия 5.0', meta: 'Видео', text: 'Совместный проект с Event Agency Елены Притоцкой.', cover: 'tild3066-3132-4932-b737-663736313665/IMG_3704.jpg' },
-  ];
-  $('[data-portfolio]').innerHTML =
-    CASES.map((c, i) => `
-    <button class="pf-item reveal" type="button" data-case="${i}">
-      <div class="pf-item__img"><img src="${CDN + c.cover}" alt="${c.title}" loading="lazy"><span class="pf-item__badge">${c.photos.length} фото</span></div>
-      <p class="pf-item__meta">${c.meta}</p><h3>${c.title}</h3><p>${c.text}</p>
-    </button>`).join('') +
-    VIDEOS.map(v => `
-    <button class="pf-item reveal" type="button" data-open-modal="video">
-      <div class="pf-item__img pf-item__img--video"><img src="${CDN + v.cover}" alt="${v.title}" loading="lazy"><span class="pf-item__play">${icon('play')}</span></div>
-      <p class="pf-item__meta">${v.meta}</p><h3>${v.title}</h3><p>${v.text}</p>
+  $('[data-cases]').innerHTML = CASES.map((c, i) => `
+    <button class="case reveal" type="button" data-case="${i}">
+      <div class="case__img"><img src="${CDN + c.cover}" alt="${c.title}" loading="lazy"><span class="case__count">${c.photos.length} фото</span></div>
+      <p class="case__meta">${c.meta}</p>
+      <h3>${c.title}</h3>
+      <p>${c.text}</p>
     </button>`).join('');
-
   let gal = { items: [], title: '', i: 0 };
   const galImg = $('[data-gal-img]'), galCap = $('[data-gal-cap]');
   const galShow = () => {
@@ -302,14 +293,9 @@
     <button class="letter" type="button" data-letter="${i}" aria-label="Открыть письмо ${i + 1}">
       <div class="letter__paper"><img src="${CDN + p}" alt="Благодарственное письмо" loading="lazy"></div>
     </button>`).join('');
-  $$('[data-slide]').forEach(b => b.addEventListener('click', () => {
-    const track = $(b.dataset.slide), first = track.firstElementChild;
-    const step = first.offsetWidth + parseFloat(getComputedStyle(track).columnGap || 20);
-    const perView = Math.max(1, Math.round(track.clientWidth / step));
-    const max = track.scrollWidth - track.clientWidth - 2;
-    if (+b.dataset.dir > 0 && track.scrollLeft >= max) track.scrollTo({ left: 0, behavior: 'smooth' });
-    else if (+b.dataset.dir < 0 && track.scrollLeft <= 2) track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
-    else track.scrollBy({ left: step * perView * +b.dataset.dir, behavior: 'smooth' });
+  $$('[data-letters-nav]').forEach(b => b.addEventListener('click', () => {
+    const w = lettersEl.firstElementChild.offsetWidth + 20;
+    lettersEl.scrollBy({ left: w * +b.dataset.lettersNav * 2, behavior: 'smooth' });
   }));
   const pItem = (p, dup) => `<div class="partner${dup ? ' partner--dup' : ''}"${dup ? ' aria-hidden="true"' : ''}><img src="${CDN + p}" alt="${dup ? '' : 'Логотип партнёра'}" loading="lazy"></div>`;
   $('[data-partners]').innerHTML = PARTNERS.map(p => pItem(p)).join('') + PARTNERS.map(p => pItem(p, true)).join('');
@@ -381,6 +367,33 @@
     io.unobserve(el);
   }), { threshold: .12, rootMargin: '0px 0px -40px 0px' });
   $$('.reveal').forEach(el => io.observe(el));
+
+  /* ---------- hero: parallax + 3D tilt ---------- */
+  const heroBg = $('[data-parallax]'), hero = $('.hero');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (heroBg && !reduce) {
+    let mx = 0, my = 0, raf;
+    const paint = () => {
+      raf = null;
+      const y = Math.min(scrollY, innerHeight * 1.2);
+      heroBg.style.transform = `translate3d(${mx * -14}px, ${y * 0.32 + my * -10}px, 0) scale(1.06)`;
+    };
+    const queue = () => { if (!raf) raf = requestAnimationFrame(paint); };
+    addEventListener('scroll', queue, { passive: true });
+    if (matchMedia('(hover: hover)').matches) {
+      hero.addEventListener('mousemove', e => {
+        mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; queue();
+      });
+      $$('.cat').forEach(c => {
+        c.addEventListener('mousemove', e => {
+          const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, yy = (e.clientY - r.top) / r.height - .5;
+          c.style.transform = `perspective(700px) rotateY(${x * 10}deg) rotateX(${yy * -10}deg) translateY(-4px)`;
+        });
+        c.addEventListener('mouseleave', () => { c.style.transform = ''; });
+      });
+    }
+    paint();
+  }
 
   /* ---------- fab ---------- */
   const fab = $('[data-fab]');
