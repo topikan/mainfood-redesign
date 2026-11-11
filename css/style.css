@@ -303,12 +303,12 @@ input,select{font:inherit;color:inherit}
 .arrow-btn{width:52px;height:52px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:20px;transition:.3s;background:#fff}
 .arrow-btn:hover{border-color:var(--wine);background:var(--wine);color:#fff}
 .arrow-btn--prev svg{transform:rotate(180deg)}
-.letters{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:6px 2px 18px;scrollbar-width:none}
+.letters{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:0;scrollbar-width:none}
 .letters::-webkit-scrollbar{display:none}
 .letter{flex:0 0 calc((100% - 80px)/5);scroll-snap-align:start;text-align:left;cursor:zoom-in}
-.letter__paper{position:relative;aspect-ratio:.72;border-radius:12px;background:#fff;padding:12px;box-shadow:0 1px 0 var(--line),0 18px 40px -28px rgba(36,27,26,.35);overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s}
+.letter__paper{position:relative;aspect-ratio:.72;border-radius:12px;background:#fff;padding:12px;border:1px solid var(--line);overflow:hidden;transition:border-color .3s}
 .letter__paper img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:4px}
-.letter:hover .letter__paper{transform:translateY(-8px);box-shadow:0 1px 0 var(--line),0 30px 50px -28px rgba(36,27,26,.45)}
+.letter:hover .letter__paper{border-color:#C9A9AE}
 .letter:hover .letter:hover .letter span{display:block;margin-top:14px;font-size:14px;font-weight:500;color:var(--muted)}
 
 .partners-wrap{margin-top:clamp(64px,7vw,104px);text-align:center}
@@ -317,12 +317,12 @@ input,select{font:inherit;color:inherit}
 .partners{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:8px}
 .partner{position:relative;flex:1 1 0;min-width:0;max-width:200px;height:150px;display:flex;align-items:center;justify-content:center;padding:0 10px}
 .partner+.partner::before{content:"";position:absolute;left:0;top:30%;bottom:30%;width:1px;background:var(--line)}
-.partner img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;transition:transform .4s var(--ease)}
-.partner:hover img{transform:scale(1.06)}
+.partner img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.partner--dup{display:none}
 
 .akbs{margin-top:28px;display:flex;align-items:center;gap:28px;padding:22px 28px;border-radius:var(--r-lg);background:var(--bg);border:1px solid var(--line)}
-.akbs__logo{width:120px;height:80px;flex-shrink:0;background:#fff;border-radius:12px;display:grid;place-items:center;padding:10px}
-.akbs__logo img{max-width:100%;max-height:100%;object-fit:contain}
+.akbs__logo{width:130px;height:84px;flex-shrink:0;display:grid;place-items:center}
+.akbs__logo img{max-width:100%;max-height:100%;object-fit:contain;mix-blend-mode:multiply}
 .akbs__text{flex:1}
 .akbs__text b{display:block;font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.15;margin-bottom:4px}
 .akbs__text p{color:var(--muted);font-size:14.5px}
@@ -537,9 +537,12 @@ input,select{font:inherit;color:inherit}
   .emo__quote{font-size:22px}
 
   .letter{flex:0 0 58%}
-  .letters{margin:0 calc(var(--pad) * -1);padding:6px var(--pad) 18px;scroll-padding:0 var(--pad)}
+  .letters{margin:0 calc(var(--pad) * -1);padding:0 var(--pad);scroll-padding:0 var(--pad)}
   .slider-arrows{display:none}
-  .partner{flex:0 0 33.333%;height:110px;padding:0 6px}
+  .partners-wrap{overflow:hidden;margin-left:calc(var(--pad) * -1);margin-right:calc(var(--pad) * -1)}
+  .partners{flex-wrap:nowrap;justify-content:flex-start;width:max-content;animation:partnersRun 26s linear infinite}
+  .partner,.partner--dup{display:flex;flex:0 0 140px;height:100px;padding:0 14px}
+  .partner+.partner::before{display:block}
   .akbs{flex-direction:column;align-items:flex-start;gap:16px;padding:22px}
   .akbs__text b{font-size:21px}
 
@@ -559,3 +562,5 @@ input,select{font:inherit;color:inherit}
   .gallery__prev{left:calc(50% - 60px)}.gallery__next{right:calc(50% - 60px)}
   .gallery .modal__close{top:-56px}
 }
+
+@keyframes partnersRun{from{transform:translateX(-50%)}to{transform:translateX(0)}}

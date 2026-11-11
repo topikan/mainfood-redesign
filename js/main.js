@@ -281,7 +281,8 @@
     const w = lettersEl.firstElementChild.offsetWidth + 20;
     lettersEl.scrollBy({ left: w * +b.dataset.lettersNav * 2, behavior: 'smooth' });
   }));
-  $('[data-partners]').innerHTML = PARTNERS.map(p => `<div class="partner reveal"><img src="${CDN + p}" alt="Логотип партнёра" loading="lazy"></div>`).join('');
+  const pItem = (p, dup) => `<div class="partner${dup ? ' partner--dup' : ''}"${dup ? ' aria-hidden="true"' : ''}><img src="${CDN + p}" alt="${dup ? '' : 'Логотип партнёра'}" loading="lazy"></div>`;
+  $('[data-partners]').innerHTML = PARTNERS.map(p => pItem(p)).join('') + PARTNERS.map(p => pItem(p, true)).join('');
 
   /* ---------- phone mask + forms ---------- */
   function maskPhone(e) {
