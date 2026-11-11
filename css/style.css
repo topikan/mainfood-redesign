@@ -821,3 +821,20 @@ input,select{font:inherit;color:inherit}
   .akbs .link-arrow{display:none}
   .akbs{cursor:pointer}
 }
+
+/* ===== hero v4: full-screen bright photo, light dimming ===== */
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;background:#2a1d1b}
+.hero__inner{flex:1;min-height:0;display:flex;align-items:center}
+.hero__bg{inset:-12% 0 0 0!important;background-position:center 40%}
+.hero__bg::after{background:linear-gradient(90deg,rgba(24,14,13,.62) 0%,rgba(24,14,13,.42) 38%,rgba(24,14,13,.12) 70%,rgba(24,14,13,.05) 100%),linear-gradient(0deg,rgba(24,14,13,.7) 0%,rgba(24,14,13,0) 34%)!important}
+.hero__title,.hero__sub,.hero .eyebrow{text-shadow:0 2px 24px rgba(0,0,0,.35)}
+.hero__sub{color:rgba(255,255,255,.9)}
+@media (max-width:1024px){
+  .hero__bg{background-position:58% center}
+  .hero__bg::after{background:linear-gradient(180deg,rgba(24,14,13,.5) 0%,rgba(24,14,13,.38) 45%,rgba(24,14,13,.72) 100%)!important}
+}
+@media (max-width:760px){
+  .hero{padding:calc(var(--header-h) + 22px) 0 22px}
+  .hero__inner{align-items:flex-start}
+  .hero__bg{inset:-6% 0 0 0!important;background-position:62% center}
+}
