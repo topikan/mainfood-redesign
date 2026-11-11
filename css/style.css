@@ -540,7 +540,7 @@ input,select{font:inherit;color:inherit}
   .letters{margin:0 calc(var(--pad) * -1);padding:0 var(--pad);scroll-padding:0 var(--pad)}
   .slider-arrows{display:none}
   .partners-wrap{overflow:hidden;margin-left:calc(var(--pad) * -1);margin-right:calc(var(--pad) * -1)}
-  .partners{flex-wrap:nowrap;justify-content:flex-start;width:max-content;animation:partnersRun 26s linear infinite}
+  .partners{flex-wrap:nowrap;justify-content:flex-start;width:max-content;background:var(--paper);animation:partnersRun 26s linear infinite}
   .partner,.partner--dup{display:flex;flex:0 0 140px;height:100px;padding:0 14px}
   .partner+.partner::before{display:block}
   .akbs{flex-direction:column;align-items:flex-start;gap:16px;padding:22px}
