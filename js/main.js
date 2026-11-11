@@ -275,7 +275,7 @@
   const lettersEl = $('[data-letters]');
   lettersEl.innerHTML = CLIENTS.map((p, i) => `
     <button class="letter" type="button" data-letter="${i}" aria-label="Открыть письмо ${i + 1}">
-      <div class="letter__paper"><img src="${CDN + p}" alt="Благодарственное письмо" loading="lazy"><span class="letter__zoom">${icon('plus')}</span></div>
+      <div class="letter__paper"><img src="${CDN + p}" alt="Благодарственное письмо" loading="lazy"></div>
     </button>`).join('');
   $$('[data-letters-nav]').forEach(b => b.addEventListener('click', () => {
     const w = lettersEl.firstElementChild.offsetWidth + 20;
