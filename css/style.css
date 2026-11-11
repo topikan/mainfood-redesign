@@ -838,3 +838,4 @@ input,select{font:inherit;color:inherit}
   .hero__inner{align-items:flex-start}
   .hero__bg{inset:-6% 0 0 0!important;background-position:62% center}
 }
+.hero>.container{width:100%}
