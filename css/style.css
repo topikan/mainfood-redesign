@@ -136,8 +136,8 @@ input,select{font:inherit;color:inherit}
 
 /* ===== HERO (dark, full screen) ===== */
 .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:calc(var(--header-h) + 24px) 0 clamp(26px,4vh,44px);background:var(--dark);color:#fff;overflow:hidden;isolation:isolate}
-.hero__bg{position:absolute;inset:0;z-index:-1;background-size:cover;background-position:65% center;animation:heroZoom 16s ease-out both}
-.hero__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,12,11,.92) 0%,rgba(18,12,11,.78) 32%,rgba(18,12,11,.25) 62%,rgba(18,12,11,.12) 100%),linear-gradient(0deg,rgba(18,12,11,.9) 0%,rgba(18,12,11,0) 38%)}
+.hero__bg{position:absolute;top:0;bottom:0;right:0;left:34%;z-index:-1;background-size:cover;background-position:center;animation:heroZoom 16s ease-out both}
+.hero__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--dark) 0%,rgba(30,23,22,.75) 22%,rgba(30,23,22,.15) 55%,rgba(30,23,22,0) 100%),linear-gradient(0deg,rgba(30,23,22,.92) 0%,rgba(30,23,22,0) 36%)}
 @keyframes heroZoom{from{transform:scale(1.1)}to{transform:scale(1)}}
 .hero__inner{position:relative;flex:1;display:flex;align-items:center;justify-content:space-between;gap:40px}
 .hero__content{max-width:620px;padding:20px 0}
@@ -460,6 +460,8 @@ input,select{font:inherit;color:inherit}
 }
 @media (max-width:1024px){
   .hero-card{display:none}
+  .hero__bg{left:0}
+  .hero__bg::after{background:linear-gradient(90deg,rgba(30,23,22,.9) 0%,rgba(30,23,22,.55) 60%,rgba(30,23,22,.3) 100%),linear-gradient(0deg,rgba(30,23,22,.92) 0%,rgba(30,23,22,0) 40%)}
   .hero__stats{grid-template-columns:repeat(2,1fr)}
   .hero__stats>div:nth-child(3){padding-left:0;border-left:0}
   .feats{grid-template-columns:repeat(2,1fr)}
