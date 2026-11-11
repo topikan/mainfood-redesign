@@ -841,3 +841,6 @@ input,select{font:inherit;color:inherit}
 .hero>.container{width:100%}
 .hero .eyebrow{color:#fff}
 .hero__title em{color:#F6C9D2}
+@media (max-width:1024px){
+  .hero__bg::after{background:linear-gradient(180deg,rgba(24,14,13,.55) 0%,rgba(24,14,13,.46) 50%,rgba(24,14,13,.7) 100%)!important}
+}
