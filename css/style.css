@@ -849,3 +849,16 @@ input,select{font:inherit;color:inherit}
   .hero{min-height:0;display:block}
   .hero__inner{min-height:min(680px,76vh)}
 }
+/* phones: content centred in the free space, bigger cards on tall screens */
+@media (max-width:760px){
+  .hero__inner{align-items:center}
+  .hero__content{padding:12px 0 20px}
+}
+@media (max-width:760px) and (min-height:780px){
+  .hero__title{font-size:clamp(44px,12.5vw,58px)}
+  .hero__sub{font-size:17px}
+  .cat{aspect-ratio:1.2;flex-basis:70%}
+}
+@media (max-width:760px) and (min-height:880px){
+  .cat{aspect-ratio:1}
+}
