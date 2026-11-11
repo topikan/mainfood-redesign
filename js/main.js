@@ -21,7 +21,7 @@
     { title: 'Корпоративные мероприятия', text: 'Праздники для команды любого размера — от офисного фуршета до выезда на природу.', list: ['Спортивные мероприятия', 'Тимбилдинги', 'Фуршет на свежем воздухе', 'Кулинарные шоу', 'Выездной бар'], img: 'tild6635-3038-4132-a232-613537626661/IMG_8910.jpg' },
     { title: 'Барбекю и полевая кухня', text: 'Готовим на открытом огне и в фирменном техасском смокере прямо на площадке.', list: ['Организация и обслуживание барбекю', 'Праздники на природе', 'Техасский смокер BigBoss BBQ', 'Пикник / OpenAir'], img: 'tild3666-3665-4935-b866-656264326232/IMG_7511.jpg' },
     { title: 'Кофе-брейк', text: 'Лёгкое и аккуратное обслуживание деловых событий, без лишнего шума.', list: ['Деловое мероприятие', 'Встреча с прессой', 'Семинар / форум', 'Встреча гостей', 'Обслуживание выставок и ярмарок'], img: 'tild6265-6434-4637-b734-636162373536/IMG_8892.jpg' },
-    { title: 'Фуршет', text: 'Красивая подача и продуманное меню под формат и время вашего события.', list: ['Деловое мероприятие', 'Welcome drink', 'Детский кейтеринг', '23 февраля / 8 марта', 'День рождения в офисе', 'Фуршет на свадьбу'], img: 'tild6636-3562-4463-b934-303436386561/IMG_3467.jpg' },
+    { title: 'Фуршет', text: 'Красивая подача и продуманное меню под формат и время вашего события.', list: ['Деловое мероприятие', 'Welcome drink', 'Детский кейтеринг', '23 февраля / 8 марта', 'День рождения в офисе', 'Фуршет на свадьбу'], img: 'tild3039-6362-4765-a139-623432613235/IMG_8914.jpg' },
     { title: 'Выездной банкет', text: 'Полноценный ресторан на вашей площадке: кухня, сервировка, официанты.', list: ['Новогодний банкет', 'Свадебный банкет', 'День рождения / юбилей', 'Выпускные вечера'], img: 'tild3931-3061-4963-a463-646236333035/___8.jpg' },
   ];
 
@@ -118,10 +118,10 @@
 
   /* ---------- mobile menu ---------- */
   const burger = $('[data-burger]'), mmenu = $('#mmenu');
-  const closeMenu = () => { mmenu.classList.remove('is-open'); burger.classList.remove('is-open'); burger.setAttribute('aria-expanded', 'false'); if (!openLayer) document.body.classList.remove('lock'); };
+  const closeMenu = () => { header.classList.remove('menu-open'); mmenu.classList.remove('is-open'); burger.classList.remove('is-open'); burger.setAttribute('aria-expanded', 'false'); if (!openLayer) document.body.classList.remove('lock'); };
   burger.addEventListener('click', () => {
     const o = !mmenu.classList.contains('is-open');
-    mmenu.classList.toggle('is-open', o); burger.classList.toggle('is-open', o);
+    mmenu.classList.toggle('is-open', o); burger.classList.toggle('is-open', o); header.classList.toggle('menu-open', o);
     burger.setAttribute('aria-expanded', o); document.body.classList.toggle('lock', o);
   });
   $$('a', mmenu).forEach(a => a.addEventListener('click', closeMenu));
@@ -260,13 +260,22 @@
   renderQuiz();
 
   /* ---------- cases & gallery ---------- */
-  $('[data-cases]').innerHTML = CASES.map((c, i) => `
-    <button class="case reveal" type="button" data-case="${i}">
-      <div class="case__img"><img src="${CDN + c.cover}" alt="${c.title}" loading="lazy"><span class="case__count">${c.photos.length} фото</span></div>
-      <p class="case__meta">${c.meta}</p>
-      <h3>${c.title}</h3>
-      <p>${c.text}</p>
+  const VIDEOS = [
+    { title: 'Клиентский день', meta: 'Видео', text: 'Как проходит наше мероприятие — от подготовки до финального тоста.', cover: 'tild3934-3033-4639-b439-383665363666/IMG_8872.jpg' },
+    { title: 'Импрессия 5.0', meta: 'Видео', text: 'Совместный проект с Event Agency Елены Притоцкой.', cover: 'tild3066-3132-4932-b737-663736313665/IMG_3704.jpg' },
+  ];
+  $('[data-portfolio]').innerHTML =
+    CASES.map((c, i) => `
+    <button class="pf-item reveal" type="button" data-case="${i}">
+      <div class="pf-item__img"><img src="${CDN + c.cover}" alt="${c.title}" loading="lazy"><span class="pf-item__badge">${c.photos.length} фото</span></div>
+      <p class="pf-item__meta">${c.meta}</p><h3>${c.title}</h3><p>${c.text}</p>
+    </button>`).join('') +
+    VIDEOS.map(v => `
+    <button class="pf-item reveal" type="button" data-open-modal="video">
+      <div class="pf-item__img pf-item__img--video"><img src="${CDN + v.cover}" alt="${v.title}" loading="lazy"><span class="pf-item__play">${icon('play')}</span></div>
+      <p class="pf-item__meta">${v.meta}</p><h3>${v.title}</h3><p>${v.text}</p>
     </button>`).join('');
+
   let gal = { items: [], title: '', i: 0 };
   const galImg = $('[data-gal-img]'), galCap = $('[data-gal-cap]');
   const galShow = () => {
@@ -293,9 +302,14 @@
     <button class="letter" type="button" data-letter="${i}" aria-label="Открыть письмо ${i + 1}">
       <div class="letter__paper"><img src="${CDN + p}" alt="Благодарственное письмо" loading="lazy"></div>
     </button>`).join('');
-  $$('[data-letters-nav]').forEach(b => b.addEventListener('click', () => {
-    const w = lettersEl.firstElementChild.offsetWidth + 20;
-    lettersEl.scrollBy({ left: w * +b.dataset.lettersNav * 2, behavior: 'smooth' });
+  $$('[data-slide]').forEach(b => b.addEventListener('click', () => {
+    const track = $(b.dataset.slide), first = track.firstElementChild;
+    const step = first.offsetWidth + parseFloat(getComputedStyle(track).columnGap || 20);
+    const perView = Math.max(1, Math.round(track.clientWidth / step));
+    const max = track.scrollWidth - track.clientWidth - 2;
+    if (+b.dataset.dir > 0 && track.scrollLeft >= max) track.scrollTo({ left: 0, behavior: 'smooth' });
+    else if (+b.dataset.dir < 0 && track.scrollLeft <= 2) track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
+    else track.scrollBy({ left: step * perView * +b.dataset.dir, behavior: 'smooth' });
   }));
   const pItem = (p, dup) => `<div class="partner${dup ? ' partner--dup' : ''}"${dup ? ' aria-hidden="true"' : ''}><img src="${CDN + p}" alt="${dup ? '' : 'Логотип партнёра'}" loading="lazy"></div>`;
   $('[data-partners]').innerHTML = PARTNERS.map(p => pItem(p)).join('') + PARTNERS.map(p => pItem(p, true)).join('');
