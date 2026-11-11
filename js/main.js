@@ -109,7 +109,7 @@
     const close = () => { t = setTimeout(() => d.classList.remove('is-open'), 180); };
     d.addEventListener('mouseenter', open);
     d.addEventListener('mouseleave', close);
-    $('.nav__link', d).addEventListener('click', () => d.classList.contains('is-open') ? d.classList.remove('is-open') : open());
+    $('.nav__link', d).addEventListener('click', open);
     d.addEventListener('focusin', open);
     d.addEventListener('focusout', e => { if (!d.contains(e.relatedTarget)) d.classList.remove('is-open'); });
     $$('.dropdown a', d).forEach(a => a.addEventListener('click', () => { d.classList.remove('is-open'); a.blur(); }));
